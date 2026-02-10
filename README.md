@@ -53,6 +53,30 @@ You can also run agents against a specific directory:
 claude --agent /path/to/claude-code-agents/test-coverage-checker.md --cwd /path/to/your/project
 ```
 
+### Running Agents from Inside Claude Code
+
+You don't have to start a new session to use an agent. If you already have Claude Code running, you can ask it to spin up one or more agents mid-conversation. Claude Code will launch each agent as a sub-process with its own context, run the analysis, and return the results back to you.
+
+Just tell Claude Code to run the agent and point it at the file:
+
+```
+> Run the security-code-reviewer agent from /path/to/claude-code-agents/security-code-reviewer.md against this project
+```
+
+You can also ask for multiple agents at once. Claude Code will run them in parallel and report back with each agent's findings:
+
+```
+> Run the security-code-reviewer and test-coverage-checker agents from /path/to/claude-code-agents/ on this repo
+```
+
+This is especially useful when you're already in the middle of a coding session and want a quick check without switching context. For example, after finishing a feature you might ask:
+
+```
+> I just finished the new payment flow. Run the security-code-reviewer and code-optimizer agents on src/payments/
+```
+
+Claude Code handles the orchestration -- it reads the agent file, spawns the agent with the right tools and model, and folds the results back into your conversation.
+
 ### Example Workflows
 
 **Pre-commit security check:**
